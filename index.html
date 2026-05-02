@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Barrows Guitars – Premium guitar sales, service, and custom design. Find your perfect instrument or let us build one for you." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>Barrows Guitars | Sales, Service & Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Overlay for mobile menu -->
+  <div class="menu-overlay" id="menuOverlay" aria-hidden="true"></div>
+
+  <!-- Hamburger Button -->
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sideNav">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <!-- Side Navigation -->
+  <nav class="side-nav" id="sideNav" aria-label="Main navigation" role="navigation">
+    <div class="nav-header">
+      <span class="nav-logo">BG</span>
+      <button class="nav-close" id="navClose" aria-label="Close navigation menu">✕</button>
+    </div>
+    <ul class="nav-links" role="list">
+      <li><a href="about.html" class="nav-link" id="nav-about">
+        <span class="nav-icon">♟</span> About Me
+      </a></li>
+      <li><a href="inventory.html" class="nav-link" id="nav-inventory">
+        <span class="nav-icon">🎸</span> Inventory
+      </a></li>
+      <li><a href="services.html" class="nav-link" id="nav-services">
+        <span class="nav-icon">🔧</span> Services
+      </a></li>
+      <li><a href="gallery.html" class="nav-link" id="nav-gallery">
+        <span class="nav-icon">🖼</span> Gallery
+      </a></li>
+      <li><a href="faq.html" class="nav-link" id="nav-faq">
+        <span class="nav-icon">❓</span> FAQ
+      </a></li>
+      <li><a href="contact.html" class="nav-link" id="nav-contact">
+        <span class="nav-icon">✉</span> Contact
+      </a></li>
+    </ul>
+    <div class="nav-footer">
+      <p>BarrowsGuitars.com</p>
+    </div>
+  </nav>
+
+  <!-- Main Homepage -->
+  <main class="homepage" id="main-content">
+
+    <!-- Background image layer -->
+    <div class="bg-image" aria-hidden="true"></div>
+    <!-- Dark overlay gradient -->
+    <div class="bg-overlay" aria-hidden="true"></div>
+
+    <!-- Hero Content -->
+    <section class="hero" aria-label="Hero section">
+      <div class="hero-content">
+        <img src="assets/logo_transparent.png" alt="Barrows Guitars monogram" class="brand-logo" />
+        <h1 class="brand-title">Barrows<br/><span class="brand-accent">Guitars</span></h1>
+        <div class="title-divider" aria-hidden="true">
+          <span class="divider-line"></span>
+          <span class="divider-icon">♦</span>
+          <span class="divider-line"></span>
+        </div>
+        <p class="brand-subtitle">Sales &nbsp;·&nbsp; Service &nbsp;·&nbsp; Design</p>
+        <a href="inventory.html" class="cta-button" id="cta-explore">Explore Collection</a>
+      </div>
+    </section>
+
+    <!-- Bottom info bar -->
+    <footer class="home-footer" aria-label="Quick links">
+      <div class="footer-items">
+        <a href="inventory.html" class="footer-item" id="footer-inventory">
+          <span class="footer-item-icon">🎸</span>
+          <span>Inventory</span>
+        </a>
+        <div class="footer-divider" aria-hidden="true"></div>
+        <a href="services.html" class="footer-item" id="footer-services">
+          <span class="footer-item-icon">🔧</span>
+          <span>Services</span>
+        </a>
+        <div class="footer-divider" aria-hidden="true"></div>
+        <a href="contact.html" class="footer-item" id="footer-contact">
+          <span class="footer-item-icon">✉</span>
+          <span>Contact</span>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
