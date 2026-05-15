@@ -313,3 +313,185 @@ html, body {
   outline-offset: 3px;
   border-radius: 4px;
 }
+
+/* ---------- About Page Styles ---------- */
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+  color: var(--clr-muted);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.about-content p {
+  margin-bottom: 1.8rem;
+}
+
+.about-content .lead {
+  font-family: var(--ff-serif);
+  font-size: 1.6rem;
+  color: var(--clr-text);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.about-quote {
+  position: relative;
+  margin: 3.5rem 0;
+  padding: 3rem 3rem 3rem 4rem;
+  background: linear-gradient(135deg, var(--clr-surface2), var(--clr-surface));
+  border-left: 4px solid var(--clr-gold);
+  border-radius: 0 12px 12px 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.about-quote::before {
+  content: '“';
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  font-family: var(--ff-serif);
+  font-size: 6rem;
+  color: rgba(201,168,76,0.15);
+  line-height: 1;
+}
+
+.about-quote p {
+  position: relative;
+  z-index: 1;
+  font-family: var(--ff-serif);
+  font-size: 1.35rem;
+  color: var(--clr-gold-light);
+  font-style: italic;
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .about-quote {
+    padding: 2rem 2rem 2rem 3rem;
+    margin: 2.5rem 0;
+  }
+  
+  .about-quote::before {
+    font-size: 4.5rem;
+    top: 5px;
+    left: 10px;
+  }
+  
+  .about-content .lead {
+    font-size: 1.4rem;
+  }
+  
+  .about-quote p {
+    font-size: 1.2rem;
+  }
+}
+
+/* ---------- Services Page Styles ---------- */
+.services-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin: 0 auto 40px;
+}
+
+.service-card {
+  background: linear-gradient(135deg, var(--clr-surface2), var(--clr-surface));
+  border: 1px solid var(--clr-border);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transition: transform 0.3s var(--ease-out), border-color 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(201,168,76,0.3);
+}
+
+.service-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.service-title {
+  font-family: var(--ff-serif);
+  font-size: 1.5rem;
+  color: var(--clr-gold-light);
+  font-weight: 700;
+}
+
+.service-price {
+  font-family: var(--ff-sans);
+  font-size: 1.2rem;
+  color: var(--clr-white);
+  font-weight: 600;
+}
+
+.service-price-sub {
+  font-size: 0.8rem;
+  color: var(--clr-muted);
+  font-weight: 400;
+  margin-left: 5px;
+}
+
+.service-details {
+  list-style: none;
+  color: var(--clr-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.service-details li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.service-details li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--clr-gold);
+  font-weight: bold;
+}
+
+.service-details ul {
+  list-style: none;
+  padding-left: 15px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.service-details ul li::before {
+  content: '◦';
+}
+
+.services-footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 30px;
+  background: rgba(201,168,76,0.05);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 12px;
+}
+
+.services-footer p {
+  color: var(--clr-gold-light);
+  font-family: var(--ff-serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.services-footer p:last-child {
+  margin-bottom: 0;
+}

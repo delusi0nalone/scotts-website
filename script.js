@@ -99,4 +99,177 @@
     }
   });
 
+  // ── Cart Manager ───────────────────────────────────────────────────────
+  const CartManager = {
+    items: [],
+    
+    init() {
+      // Load cart from localStorage
+      const savedCart = localStorage.getItem('bg_cart');
+      if (savedCart) {
+        try {
+          this.items = JSON.parse(savedCart);
+        } catch (e) {
+          this.items = [];
+        }
+      }
+      
+      this.injectCartUI();
+      this.attachEventListeners();
+      this.updateUI();
+    },
+
+    save() {
+      localStorage.setItem('bg_cart', JSON.stringify(this.items));
+    },
+
+    addItem(id, name, price) {
+      if (!this.items.some(item => item.id === id)) {
+        this.items.push({ id, name, price: parseFloat(price) });
+        this.save();
+        this.updateUI();
+      }
+    },
+
+    removeItem(id) {
+      this.items = this.items.filter(item => item.id !== id);
+      this.save();
+      this.updateUI();
+    },
+
+    injectCartUI() {
+      // Inject global cart icon
+      const cartIcon = document.createElement('div');
+      cartIcon.className = 'global-cart-icon';
+      cartIcon.id = 'globalCartIcon';
+      cartIcon.setAttribute('aria-label', 'Open Shopping Cart');
+      cartIcon.innerHTML = `
+        🛒
+        <div class="cart-badge" id="cartBadge">0</div>
+      `;
+      document.body.appendChild(cartIcon);
+
+      // Inject cart modal
+      const cartModal = document.createElement('div');
+      cartModal.className = 'cart-modal-overlay';
+      cartModal.id = 'cartModalOverlay';
+      cartModal.innerHTML = `
+        <div class="cart-modal-container" role="dialog" aria-modal="true" aria-labelledby="cartModalTitle">
+          <div class="cart-modal-header">
+            <h2 class="cart-modal-title" id="cartModalTitle">Your Cart</h2>
+            <button class="cart-close-btn" id="cartCloseBtn" aria-label="Close Cart">✕</button>
+          </div>
+          <div class="cart-modal-body" id="cartModalBody">
+            <div class="cart-empty-msg">Your cart is empty.</div>
+          </div>
+          <div class="cart-modal-footer">
+            <span class="cart-total-label">Total Estimate:</span>
+            <span class="cart-total-price" id="cartTotalPrice">$0.00</span>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(cartModal);
+
+      this.iconEl = cartIcon;
+      this.badgeEl = document.getElementById('cartBadge');
+      this.modalOverlay = cartModal;
+      this.modalBody = document.getElementById('cartModalBody');
+      this.totalPriceEl = document.getElementById('cartTotalPrice');
+      this.closeBtn = document.getElementById('cartCloseBtn');
+
+      // Modal Events
+      this.iconEl.addEventListener('click', () => this.openModal());
+      this.closeBtn.addEventListener('click', () => this.closeModal());
+      this.modalOverlay.addEventListener('click', (e) => {
+        if (e.target === this.modalOverlay) this.closeModal();
+      });
+    },
+
+    openModal() {
+      this.modalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden'; // prevent bg scroll
+    },
+
+    closeModal() {
+      this.modalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    },
+
+    attachEventListeners() {
+      // Listen to "Add to Cart" buttons on services page
+      const addBtns = document.querySelectorAll('.add-to-cart-btn');
+      addBtns.forEach(btn => {
+        const id = btn.getAttribute('data-id');
+        
+        // Initial state
+        if (this.items.some(item => item.id === id)) {
+          btn.classList.add('added');
+          btn.textContent = 'Added to Cart ✓';
+        }
+
+        btn.addEventListener('click', () => {
+          if (!btn.classList.contains('added')) {
+            const name = btn.getAttribute('data-name');
+            const price = btn.getAttribute('data-price');
+            this.addItem(id, name, price);
+            btn.classList.add('added');
+            btn.textContent = 'Added to Cart ✓';
+          }
+        });
+      });
+    },
+
+    updateUI() {
+      // Update badge
+      const count = this.items.length;
+      this.badgeEl.textContent = count;
+      if (count > 0) {
+        this.iconEl.classList.add('has-items');
+      } else {
+        this.iconEl.classList.remove('has-items');
+      }
+
+      // Update modal list
+      if (count === 0) {
+        this.modalBody.innerHTML = '<div class="cart-empty-msg">Your cart is empty.</div>';
+        this.totalPriceEl.textContent = '$0.00';
+      } else {
+        let total = 0;
+        let html = '';
+        this.items.forEach(item => {
+          total += item.price;
+          html += `
+            <div class="cart-item">
+              <div class="cart-item-info">
+                <span class="cart-item-name">${item.name}</span>
+                <span class="cart-item-price">$${item.price.toFixed(2)}</span>
+              </div>
+              <button class="cart-item-remove" data-id="${item.id}">Remove</button>
+            </div>
+          `;
+        });
+        this.modalBody.innerHTML = html;
+        this.totalPriceEl.textContent = '$' + total.toFixed(2);
+
+        // Attach remove events
+        const removeBtns = this.modalBody.querySelectorAll('.cart-item-remove');
+        removeBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-id');
+            this.removeItem(id);
+            // Reset "Add to Cart" button if we are on the services page
+            const addBtn = document.querySelector(`.add-to-cart-btn[data-id="${id}"]`);
+            if (addBtn) {
+              addBtn.classList.remove('added');
+              addBtn.textContent = 'Add to Cart';
+            }
+          });
+        });
+      }
+    }
+  };
+
+  // Initialize Cart Manager
+  CartManager.init();
+
 })();
